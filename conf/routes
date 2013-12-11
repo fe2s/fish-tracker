@@ -15,4 +15,6 @@ GET         /assets/*file          controllers.Assets.at(path="/public", file)
 GET         /routes.js             controllers.MainController.router
 
 # Every other page
-GET         /*path                 controllers.MainController.index(path)
+#GET         /*path                 controllers.MainController.index(path)
+
+GET         /test                  controllers.CatchController.test
