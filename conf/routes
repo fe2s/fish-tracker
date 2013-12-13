@@ -17,4 +17,4 @@ GET         /routes.js             controllers.MainController.router
 # Every other page
 #GET         /*path                 controllers.MainController.index(path)
 
-GET         /test                  controllers.CatchController.test
+POST         /test                  controllers.CatchController.test
