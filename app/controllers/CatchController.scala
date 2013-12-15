@@ -5,6 +5,8 @@ import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsString, JsPath, JsResult, Json}
 import play.api.data.validation.ValidationError
+import models.Catch
+import services.CatchService
 
 
 /**
@@ -12,45 +14,27 @@ import play.api.data.validation.ValidationError
  */
 object CatchController extends Controller {
 
-  case class CatchForm(place:String, fish:String)
+  case class CatchForm(place:String, fish:String) {
+    def toCatch = Catch(fish, place)
+  }
 
   implicit val catchFormFormat = Json.format[CatchForm]
 
   def test() = Action(parse.json) { req =>
-    Async {
       val json: JsResult[CatchForm] = Json.fromJson(req.body)
-
-//      val res:Result = json.fold[Result] {
-//
-//      }
-
-      val res = Ok
-
-      Future {res}
-    }
+      json.fold[Result] (
+        invalid => BadRequest("Bad json"),
+        form => Async {
+          CatchService.save(form.toCatch).map(_ => Ok)
+        }
+      )
   }
 
-  def myTest(a: Int => Int, b: Int => Int):Int = {
-    a(3) + b(4)
-  }
-
-  def myTest2(a: Int => Int):Int = {
-    a(3)
-  }
-
-  def myTest3(a:Int):Int = a
-
-  def tt() = {
-
-    val f: Int => Int = x => 3
-
-    myTest2 {
-      f
+  def findAll() = Action { req =>
+    Async {
+      CatchService.findAll().map(_ => Ok)
     }
-
-    myTest {
-      f, f
-    }
+  }
 
 //    val jsres: JsResult[String] = JsString("toto").validate[String]
 //    jsres.fold(
