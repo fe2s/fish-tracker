@@ -4,13 +4,14 @@ import play.api.mvc.{Result, Action, Controller}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsString, JsPath, JsResult, Json}
 import models.Catch
-import services.CatchService
+import scala.concurrent.Future
+import services.LiveServices
 
 
 /**
  * @author Oleksiy Dyagilev
  */
-object CatchController extends Controller {
+object CatchController extends Controller with LiveServices {
 
   case class CatchForm(place:String, fish:String) {
     def toCatch = Catch(fish, place)
@@ -23,21 +24,15 @@ object CatchController extends Controller {
       json.fold[Result] (
         invalid => BadRequest("Bad json"),
         form => Async {
-          CatchService.save(form.toCatch).map(_ => Ok)
+          catchService.create(form.toCatch).map(_ => Ok)
         }
       )
   }
 
   def findAll() = Action { req =>
     Async {
-      CatchService.findAll().map(catches => Ok(Json.toJson(catches)))
+      catchService.findAll().map(catches => Ok(Json.toJson(catches)))
     }
   }
-
-//    val jsres: JsResult[String] = JsString("toto").validate[String]
-//    jsres.fold(
-//      errors: Seq[(JsPath, Seq[ValidationError])] => 1,
-//        s: String => 2
-//    )
 
 }

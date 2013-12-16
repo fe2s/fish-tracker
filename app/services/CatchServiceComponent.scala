@@ -7,25 +7,28 @@ import play.modules.reactivemongo.json.collection.JSONCollection
 import play.api.Play.current
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{Json, Writes, Reads, JsObject}
-import scala.concurrent
 import scala.concurrent.Future
+import dao.CatchDaoComponent
+
 
 /**
  * @author Oleksiy Dyagilev
  */
-object CatchService {
+trait CatchServiceComponent {
+  self:CatchDaoComponent =>
 
-  private def collection = ReactiveMongoPlugin.db.collection[JSONCollection]("catch")
+  val catchService: CatchService
 
-  def findAll():Future[List[Catch]] = {
-    val query = Json.obj()
-    collection.find(query).cursor[Catch].toList()
+  trait CatchService {
+    def findAll(): Future[List[Catch]]
+
+    def create(c: Catch): Future[Catch]
   }
 
+  class CatchServiceImpl extends CatchService {
+    def findAll(): Future[List[Catch]] = catchDao.findAll()
 
-  def save(c:Catch) = {
-    // TODO: proper result
-    collection.save(c)
+    def create(c: Catch): Future[Catch] = catchDao.create(c)
   }
 
 }
