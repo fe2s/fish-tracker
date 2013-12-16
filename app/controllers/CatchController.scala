@@ -1,10 +1,8 @@
 package controllers
 
 import play.api.mvc.{Result, Action, Controller}
-import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsString, JsPath, JsResult, Json}
-import play.api.data.validation.ValidationError
 import models.Catch
 import services.CatchService
 
@@ -32,7 +30,7 @@ object CatchController extends Controller {
 
   def findAll() = Action { req =>
     Async {
-      CatchService.findAll().map(_ => Ok)
+      CatchService.findAll().map(catches => Ok(Json.toJson(catches)))
     }
   }
 
@@ -41,7 +39,5 @@ object CatchController extends Controller {
 //      errors: Seq[(JsPath, Seq[ValidationError])] => 1,
 //        s: String => 2
 //    )
-
-  }
 
 }
