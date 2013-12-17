@@ -4,14 +4,13 @@ import play.api.mvc.{Result, Action, Controller}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsString, JsPath, JsResult, Json}
 import models.Catch
-import scala.concurrent.Future
-import services.LiveServices
+import services.impl.ServicesImpl.services._
 
 
 /**
  * @author Oleksiy Dyagilev
  */
-object CatchController extends Controller with LiveServices {
+object CatchController extends Controller {
 
   case class CatchForm(place:String, fish:String) {
     def toCatch = Catch(fish, place)

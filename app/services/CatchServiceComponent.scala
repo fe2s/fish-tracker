@@ -25,10 +25,4 @@ trait CatchServiceComponent {
     def create(c: Catch): Future[Catch]
   }
 
-  class CatchServiceImpl extends CatchService {
-    def findAll(): Future[List[Catch]] = catchDao.findAll()
-
-    def create(c: Catch): Future[Catch] = catchDao.create(c)
-  }
-
 }

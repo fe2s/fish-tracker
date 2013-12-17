@@ -22,21 +22,4 @@ trait CatchDaoComponent {
     def create(c: Catch): Future[Catch]
   }
 
-  class CatchDaoImpl extends CatchDao {
-
-    private def collection = ReactiveMongoPlugin.db.collection[JSONCollection]("catch")
-
-    def findAll(): Future[List[Catch]] = {
-      val query = Json.obj()
-      collection.find(query).cursor[Catch].toList()
-    }
-
-    def create(c: Catch): Future[Catch] = {
-        collection.save(c).map {
-          case ok if ok.ok => c
-          case error => throw new RuntimeException(error.message)
-        }
-    }
-  }
-
 }
