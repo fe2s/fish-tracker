@@ -20,7 +20,8 @@ object MainController extends Controller {
       Routes.javascriptRouter("routes")(
         routes.javascript.MainController.events,
         routes.javascript.MessageController.getMessages,
-        routes.javascript.MessageController.saveMessage
+        routes.javascript.MessageController.saveMessage,
+        routes.javascript.CatchController.test
       )
     ).as("text/javascript")
   }

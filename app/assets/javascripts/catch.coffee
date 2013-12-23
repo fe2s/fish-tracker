@@ -1,27 +1,22 @@
-require(["webjars!knockout.js", 'webjars!jquery.js', "/routes.js", "webjars!bootstrap.js" ], (ko) ->
+class CatchModel
+  constructor: () ->
+    self = @
+    alert("catch model constr")
+    @place = ko.observable("abc")
+    @fish = ko.observable("cde")
 
-#  class Test
-#    constructor: ->
-#      alert("constr")
+  submit: () ->
+    alert("place is " + @place() + " fish is " + @fish())
+    o =
+      contentType: "application/json"
+      type: "post"
+      data: {}
+      url: "/test"
 
-#  test = ->
-#    t = new Test
+    $.ajax(o)
 
-  class CatchModel
-    constructor: () ->
-      alert("catch model constr")
-      @place = ko.observable("abc")
-      @fish = ko.observable("cde")
-
-    submit: () ->
-      alert("place is " + @place() + " fish is " + @fish())
-
-
+$(() ->
   ko.applyBindings(new CatchModel)
-
-#  $("#submitCatch").click( ->
-#    alert(ko)
-#    alert("submit catch3")
-#  )
-
 )
+
+#routes.controllers.CatchController.test()

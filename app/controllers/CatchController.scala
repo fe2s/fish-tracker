@@ -19,6 +19,7 @@ object CatchController extends Controller {
   implicit val catchFormFormat = Json.format[CatchForm]
 
   def test() = Action(parse.json) { req =>
+      println(req)
       val json: JsResult[CatchForm] = Json.fromJson(req.body)
       json.fold[Result] (
         invalid => BadRequest("Bad json"),
