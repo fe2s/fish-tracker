@@ -1,25 +1,27 @@
-@(title: String)(content: Html)
+@(content: Html)
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@title</title>
+    <title>Fish tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' media="screen" href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.css"))'>
     <link rel='stylesheet' media="screen" href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap-theme.css"))'>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/datepicker/datepicker.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.js"))'></script>
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.js"))'></script>
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("knockout.js"))'></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/datepicker/bootstrap-datepicker.js")'></script>
     <script type='text/javascript' src='/routes.js'></script>
     <script type='text/javascript' src='@routes.Assets.at("javascripts/catch.js")'></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">@title</a>
+            <a class="navbar-brand" href="#">Fish tracker</a>
         </div>
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">

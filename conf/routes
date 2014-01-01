@@ -18,4 +18,4 @@ GET         /routes.js             controllers.MainController.router
 #GET         /*path                 controllers.MainController.index(path)
 
 GET         /catches               controllers.CatchController.findAll
-POST        /test                  controllers.CatchController.test
+POST        /catches/create        controllers.CatchController.create

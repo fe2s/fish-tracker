@@ -1,22 +1,44 @@
-class CatchModel
+class Catch
+  constructor: (json) ->
+    @place = ko.observable(json.place)
+    @fish = ko.observable(json.fish)
+
+class CatchViewModel
   constructor: () ->
-    self = @
-    alert("catch model constr")
-    @place = ko.observable("abc")
-    @fish = ko.observable("cde")
+    @catches = ko.observableArray([])
+    @place = ko.observable("")
+    @fish = ko.observable("")
+    # init calender
+    $('.datepicker').datepicker(
+      autoclose: true
+      todayHighlight: true
+    );
+    @load()
 
   submit: () ->
-    alert("place is " + @place() + " fish is " + @fish())
-    o =
+    catchObj =
+      fish: @fish()
+      place: @place()
+
+    @catches.push(catchObj)
+
+    $.ajax(
       contentType: "application/json"
       type: "post"
-      data: {}
-      url: "/test"
+      data: JSON.stringify(catchObj)
+      url: routes.controllers.CatchController.create().url
+    )
 
-    $.ajax(o)
+  load: () ->
+    self = @
+    url = routes.controllers.CatchController.findAll().url
+    $.getJSON(url, (json) ->
+      loadedCatches = $.map(json, (catchJson) -> new Catch(catchJson))
+      self.catches(loadedCatches)
+    )
 
 $(() ->
-  ko.applyBindings(new CatchModel)
+  ko.applyBindings(new CatchViewModel)
 )
 
 #routes.controllers.CatchController.test()
