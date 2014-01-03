@@ -21,9 +21,12 @@ object ApplicationBuild extends Build {
     // "group" % "artifact" % "version"
   )
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(
+  val main = play.Project(appName, appVersion, appDependencies).settings (
     // Add your own project settings here
     scalaVersion := "2.10.2"
+
+//    publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+
   )
 
 }

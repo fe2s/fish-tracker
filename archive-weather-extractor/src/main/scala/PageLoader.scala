@@ -9,7 +9,7 @@ class PageLoader {
 
   def load(url:String):String = {
     val connection = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
-    Source.fromInputStream(connection.getInputStream).mkString("")
+    Source.fromInputStream(connection.getInputStream).mkString
   }
 
 }
