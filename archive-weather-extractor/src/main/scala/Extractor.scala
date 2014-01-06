@@ -2,7 +2,7 @@ import java.util.regex.Pattern
 import model._
 import scala.io.Source
 import scala.util.matching.Regex
-import scala.util.{Failure, Try}
+import scala.util.{Success, Failure, Try}
 import Utils._
 
 /**
@@ -11,23 +11,16 @@ import Utils._
 class Extractor {
 
   def extract(html: String): String = {
-    //    val tds = for {table <- extractTable(html)
-    //                   trs <- extractTrs(table)
-    //                   tds = extractTds(trs)
-    //                   td <- tds
-    //    } yield td
+    //        val tds = for {table <- extractTable(html)
+    //                       trs <- extractTrs(table)
+    //                       tdsl = extractTds(trs)
+    //                       td <- tds
+    //        } yield td
+
+    val trls = extractTable(html) map extractTrs
 
 
-    //    val time = tds.toSeq match {
-    //      case Seq(timeTd, conditionTd, tempTd, windTd, pressureTd, humidityTd) =>
-    //        for (time <- tryOpt(extractOrdinarySpan(timeTd), "time not found");
-    //             condition <- extractCondition(conditionTd);
-    //             temp <- extractTemp(tempTd);
-    //             pressure <- extractOrdinarySpan(pressureTd).map(_.toInt);
-    //             humidity <- extractOrdinarySpan(humidityTd).map(_.toInt)
-    //        ) yield Record(time, condition, temp, Wind(East, 5), pressure, humidity)
-    //      case _ => None
-    //    }
+
 
     ""
   }
@@ -47,7 +40,7 @@ class Extractor {
     regex.findAllIn(tr).matchData.map(_.group(1)).toSeq
   }
 
-  def extractOrdinarySpan(td: String): Option[String] = {
+  def extractSpan(td: String): Option[String] = {
     val regex = """(?s)<div class=\"vl_parent\"><span class=\"vl_child\"><span>(.*?)</span>""".r
     regex.findFirstIn(td)
   }
@@ -57,13 +50,18 @@ class Extractor {
     regex.findFirstIn(conditionTd)
   }
 
-  def extractTemp(td: String): Try[Int] = {
-    extractOrdinarySpan(td) match {
-      case Some(temp) => Try(temp.toInt)
-      case _ => Failure(new Exception("temperature not found"))
-    }
-  }
+  def extractRecord(tds: Seq[String]): Try[Record] = tds match {
+    case Seq(timeTd, conditionTd, tempTd, windTd, pressureTd, humidityTd) =>
 
+      for {time <- toTry(extractSpan(timeTd), s"time not found $timeTd")
+           condition <- toTry(extractCondition(conditionTd))
+           temp <- toTry(extractSpan(tempTd).map(_.toInt), s"temp not $tempTd")
+           pressure <- toTry(extractSpan(pressureTd).map(_.toInt), s"pressure not found $pressureTd")
+           humidity <- toTry(extractSpan(humidityTd).map(_.toInt), s"humidity not found $humidityTd")
+      } yield Record(time, condition, temp, Wind(East, 5), pressure, humidity)
+
+    case _ => Failure(new Exception("not enough TDs to parse record"))
+  }
 
 }
 

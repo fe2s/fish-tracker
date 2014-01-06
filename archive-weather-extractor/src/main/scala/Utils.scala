@@ -5,7 +5,7 @@ import scala.util.{Failure, Success, Try}
  */
 object Utils {
 
-  def tryOpt[T](opt:Option[T], exceptionMsg:String):Try[T] = {
+  def toTry[T](opt:Option[T], exceptionMsg:String = ""):Try[T] = {
     opt match {
       case Some(v) => Success(v)
       case _ => Failure(new Exception(exceptionMsg))
