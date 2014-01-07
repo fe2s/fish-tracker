@@ -6,29 +6,40 @@ package model
 sealed trait WindDirection{
   def rusName():String
 }
+
+object WindDirection {
+  var values = Seq(West, East, South, North, NorthEast, SouthEast, SouthWest, NorthWest)
+
+  def byRusName(name:String):Option[WindDirection] = {
+    val nameLowCase = name.toLowerCase
+    values.find(_.rusName() == nameLowCase)
+  }
+
+}
+
 case object West extends WindDirection {
-  def rusName(): String = "западный"
+  def rusName() = "западный"
 }
 case object East extends WindDirection{
-  def rusName(): String = "восточный"
+  def rusName() = "восточный"
 }
 case object South extends WindDirection{
-  def rusName(): String = "южный"
+  def rusName() = "южный"
 }
 case object North extends WindDirection{
-  def rusName(): String = "северный"
+  def rusName() = "северный"
 }
 case object NorthEast extends WindDirection{
-  def rusName(): String = "северо-восточный"
+  def rusName() = "северо-восточный"
 }
 case object SouthEast extends WindDirection{
-  def rusName(): String = "юго-восточный"
+  def rusName() = "юго-восточный"
 }
 case object SouthWest extends WindDirection{
-  def rusName(): String = "юго-западный"
+  def rusName() = "юго-западный"
 }
 case object NorthWest extends WindDirection{
-  def rusName(): String = "северо-западный"
+  def rusName() = "северо-западный"
 }
 
 case class Wind(direction:WindDirection, speed:Float) {
