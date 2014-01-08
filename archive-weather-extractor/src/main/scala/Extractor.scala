@@ -60,7 +60,7 @@ class Extractor {
 
   def extractTemp(tempTd:String): Option[Int] = {
     val span = extractSpan(tempTd)
-    span.flatMap(_.split("&deg;C").headOption.map(_.toInt))
+    span.flatMap(_.split("&deg;C").headOption.map(_.replace("+", "").toInt))
   }
 
   def extractWind(windTd:String): Option[Wind] = {
@@ -73,9 +73,8 @@ class Extractor {
 
     for {
       directionStr <- directionOpt
-      direction <- WindDirection.byRusName(directionStr)
       speed <- speedOpt
-    } yield Wind(direction, speed.toFloat)
+    } yield Wind(directionStr.toLowerCase, speed.toFloat)
   }
 
   def extractRecord(tds: Seq[String]): Try[Record] = tds match {

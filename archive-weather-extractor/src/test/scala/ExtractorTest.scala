@@ -47,10 +47,10 @@ class ExtractorTest extends FunSuite {
     val records = extractor.extract(html)
     println(s"records = $records")
     val expected = Some(List(
-      Success(Record("00:00", "Переменная облачность", 0, Wind(NorthWest, 6.0f), 762, 99)),
-      Success(Record("06:00", "Дымка", -2, Wind(NorthWest, 6.0f), 764, 99)),
-      Success(Record("12:00", "Ясно", -2, Wind(NorthWest, 5.0f), 765, 91)),
-      Success(Record("18:00", "Небольшая облачность", -1, Wind(NorthWest, 4.0f), 767, 63)))
+      Success(Record("00:00", "Переменная облачность", 0, Wind("северо-западный", 6.0f), 762, 99)),
+      Success(Record("06:00", "Дымка", -2, Wind("северо-западный", 6.0f), 764, 99)),
+      Success(Record("12:00", "Ясно", -2, Wind("северо-западный", 5.0f), 765, 91)),
+      Success(Record("18:00", "Небольшая облачность", -1, Wind("северо-западный", 4.0f), 767, 63)))
     )
     assert(records == expected)
   }

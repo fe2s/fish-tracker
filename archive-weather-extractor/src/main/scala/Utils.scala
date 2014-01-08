@@ -5,16 +5,15 @@ import scala.util.{Failure, Success, Try}
  */
 object Utils {
 
-  def toTry[T](opt: => Option[T], exceptionMsg:String = ""):Try[T] = {
+  def toTry[T](opt: => Option[T], exceptionMsg: String = ""): Try[T] = {
     try {
       opt match {
         case Some(v) => Success(v)
         case _ => Failure(new Exception(exceptionMsg))
       }
     } catch {
-      case e:Exception => Failure(new Exception(exceptionMsg, e))
+      case e: Exception => Failure(new Exception(exceptionMsg + ". Cause " + e))
     }
-
   }
 
 }
