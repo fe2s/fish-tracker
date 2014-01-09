@@ -8,7 +8,7 @@ import com.mongodb.casbah.commons.conversions.scala._
 /**
  * @author Oleksiy_Dyagilev
  */
-class Persistence {
+object Persistence {
   val mongoClient = MongoClient(Config.host, Config.port)
   val db = mongoClient("fish")
   val weather = db("weather")
