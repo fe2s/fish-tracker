@@ -13,10 +13,10 @@ object ApplicationBuild extends Build {
     "com.novus" %% "salat" % "1.9.4",
 
     // WebJars pull in client-side web libraries
-    "org.webjars" %% "webjars-play" % "2.2.0"
-//    "org.webjars" % "bootstrap" % "3.0.0",
-//    "org.webjars" % "knockout" % "2.3.0",
-//    "org.webjars" % "requirejs" % "2.1.8"
+    "org.webjars" %% "webjars-play" % "2.2.0",
+    "org.webjars" % "bootstrap" % "3.0.0",
+    "org.webjars" % "knockout" % "2.3.0",
+    "org.webjars" % "requirejs" % "2.1.8"
 
     // Add your own project dependencies in the form:
     // "group" % "artifact" % "version"
