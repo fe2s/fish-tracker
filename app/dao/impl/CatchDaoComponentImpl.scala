@@ -2,13 +2,10 @@ package dao.impl
 
 import dao.CatchDaoComponent
 import models.Catch
-import scala.concurrent.Future
-import play.modules.reactivemongo.ReactiveMongoPlugin
-import play.modules.reactivemongo.json.collection.JSONCollection
-import play.api.libs.json.Json
-import java.lang.RuntimeException
-import play.api.Play.current
-import play.api.libs.concurrent.Execution.Implicits._
+import MongoClient._
+import com.novus.salat._
+import com.novus.salat.global._
+import com.mongodb.casbah.Imports._
 
 
 /**
@@ -18,18 +15,16 @@ trait CatchDaoComponentImpl extends CatchDaoComponent {
 
   val catchDao = new CatchDao {
 
-    private def collection = ReactiveMongoPlugin.db.collection[JSONCollection]("catch")
-
-    def findAll(): Future[List[Catch]] = {
-      val query = Json.obj()
-      collection.find(query).cursor[Catch].toList()
+    def findAll(): List[Catch] = {
+        catchColl.find().map(grater[Catch].asObject(_)).toList
     }
 
-    def create(c: Catch): Future[Catch] = {
-      collection.save(c).map {
-        case ok if ok.ok => c
-        case error => throw new RuntimeException(error.message)
-      }
+    def create(c: Catch): Catch = {
+//      collection.save(c).map {
+//        case ok if ok.ok => c
+//        case error => throw new RuntimeException(error.message)
+//      }
+      c
     }
   }
 

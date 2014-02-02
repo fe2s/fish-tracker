@@ -2,8 +2,6 @@ package services
 
 import models.Catch
 import models.Catch._
-import play.modules.reactivemongo.ReactiveMongoPlugin
-import play.modules.reactivemongo.json.collection.JSONCollection
 import play.api.Play.current
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{Json, Writes, Reads, JsObject}
@@ -20,9 +18,9 @@ trait CatchServiceComponent {
   val catchService: CatchService
 
   trait CatchService {
-    def findAll(): Future[List[Catch]]
+    def findAll(): List[Catch]
 
-    def create(c: Catch): Future[Catch]
+    def create(c: Catch): Catch
   }
 
 }

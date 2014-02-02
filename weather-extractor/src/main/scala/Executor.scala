@@ -35,7 +35,9 @@ class Executor(startDate: DateTime, endDate: DateTime) {
         }
 
         def handleRecord(recordTry:Try[Record]) = recordTry match {
-          case Success(r) => Persistence.save(Weather(date, r))
+          case Success(r) =>
+            println(s"record $r")
+            Persistence.save(Weather(date, r))
           case fail => println(s"failed record $fail")
         }
       }

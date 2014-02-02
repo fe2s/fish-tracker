@@ -13,8 +13,8 @@ trait CatchServiceComponentImpl extends CatchServiceComponent {
 
   override val catchService = new CatchService {
 
-    def findAll(): Future[List[Catch]] = catchDao.findAll()
+    def findAll(): List[Catch] = catchDao.findAll()
 
-    def create(c: Catch): Future[Catch] = catchDao.create(c)
+    def create(c: Catch): Catch = catchDao.create(c)
   }
 }

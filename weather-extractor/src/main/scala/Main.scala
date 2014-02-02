@@ -9,6 +9,6 @@ object Main extends App {
 
   val today = new DateTime()
 
-  new Executor(today.minusDays(30), today).start()
+  new Executor(today.minusDays(1), today).start()
 
 }
