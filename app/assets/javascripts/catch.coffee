@@ -12,7 +12,8 @@ class CatchViewModel
     $('.datepicker').datepicker(
       autoclose: true
       todayHighlight: true
-    );
+    ).on('changeDate', (ev) -> alert(ev))
+
     @load()
 
   submit: () ->

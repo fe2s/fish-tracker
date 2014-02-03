@@ -2,6 +2,7 @@ package services
 
 import dao.WeatherDaoComponent
 import model.mongo.Weather
+import org.joda.time.DateTime
 
 /**
  * @author Oleksiy Dyagilev
@@ -12,7 +13,7 @@ trait WeatherServiceComponent {
   val weatherService:WeatherService
 
   trait WeatherService {
-    def findByDate():Seq[Weather]
+    def findByDate(date: DateTime):Seq[Weather]
   }
 
 }

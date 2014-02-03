@@ -4,7 +4,6 @@ import dao.CatchDaoComponent
 import models.Catch
 import MongoClient._
 import com.novus.salat._
-import com.novus.salat.global._
 import com.mongodb.casbah.Imports._
 
 
@@ -20,10 +19,7 @@ trait CatchDaoComponentImpl extends CatchDaoComponent {
     }
 
     def create(c: Catch): Catch = {
-//      collection.save(c).map {
-//        case ok if ok.ok => c
-//        case error => throw new RuntimeException(error.message)
-//      }
+      catchColl.save(grater[Catch].asDBObject(c))
       c
     }
   }
