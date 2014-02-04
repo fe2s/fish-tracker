@@ -16,4 +16,4 @@ GET         /routes.js             controllers.MainController.router
 GET         /catches               controllers.CatchController.findAll
 POST        /catches/create        controllers.CatchController.create
 
-GET         /weather/date/:date          controllers.WeatherController.findByDate(date:String)
+GET         /weather/date/:time          controllers.WeatherController.findByDate(time:Long)

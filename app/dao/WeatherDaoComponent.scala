@@ -11,7 +11,7 @@ trait WeatherDaoComponent {
   val weatherDao:WeatherDao
 
   trait WeatherDao {
-    def findByDate(date: DateTime): Seq[Weather]
+    def findByDate(fromDate: DateTime, toDate: DateTime): Seq[Weather]
   }
 
 }

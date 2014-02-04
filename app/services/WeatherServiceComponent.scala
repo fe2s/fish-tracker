@@ -13,7 +13,7 @@ trait WeatherServiceComponent {
   val weatherService:WeatherService
 
   trait WeatherService {
-    def findByDate(date: DateTime):Seq[Weather]
+    def findByDate(time: Long):Seq[Weather]
   }
 
 }

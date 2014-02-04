@@ -13,16 +13,13 @@ import com.github.nscala_time.time.Imports._
  * @author Oleksiy Dyagilev
  */
 object WeatherController extends Controller {
-  def findByDate(date:String) = Action { req =>
-    println()
-    weatherService.findByDate(new DateTime())
-    println(req + " " + date)
+
+  def findByDate(time: Long) = Action { req =>
+
+    weatherService.findByDate(time)
+    println(req + " " + time)
     Ok("asdasd")
   }
 
-//  def findByDate() = Action(parse.json) { req =>
-//    println(req)
-//    Ok("asdasd")
-//  }
 
 }

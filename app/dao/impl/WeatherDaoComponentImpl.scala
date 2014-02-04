@@ -15,12 +15,8 @@ trait WeatherDaoComponentImpl extends WeatherDaoComponent {
 
   val weatherDao = new WeatherDao {
 
-    def findByDate(date:DateTime): Seq[Weather] = {
-      println("=======")
-      val startTime = new DateTime(2014, 1, 1, 0, 0)
-      val endTime = new DateTime(2014, 1, 1, 0, 0)
-
-      val found = weatherColl.find("time" $gte startTime $lte endTime).toList
+    def findByDate(fromDate: DateTime, toDate: DateTime): Seq[Weather] = {
+      val found = weatherColl.find("time" $gte fromDate $lte toDate).toList
 
       found map (o => println("found" + o))
 

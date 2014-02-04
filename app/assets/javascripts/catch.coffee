@@ -5,6 +5,7 @@ class Catch
 
 class CatchViewModel
   constructor: () ->
+    self = @
     @catches = ko.observableArray([])
     @place = ko.observable("")
     @fish = ko.observable("")
@@ -12,9 +13,19 @@ class CatchViewModel
     $('.datepicker').datepicker(
       autoclose: true
       todayHighlight: true
-    ).on('changeDate', (ev) -> alert(ev))
-
+    ).on('changeDate', (event) ->
+      self.onChangeDate(event)
+    )
+    # load data
     @load()
+
+  onChangeDate: (event) ->
+    time = event.date.getTime()
+    url = routes.controllers.WeatherController.findByDate(time).url
+    $.getJSON(url, (json) ->
+      alert(json)
+    )
+
 
   submit: () ->
     catchObj =
