@@ -37,6 +37,17 @@
             </div>
         </div>
 
+        <div data-bind="foreach: weatherList">
+            <div>
+                time: <span data-bind="text: time" ></span>
+                condition: <span data-bind="text: condition" ></span>
+                temperature: <span data-bind="text: temp" ></span>
+                pressure: <span data-bind="text: pressure" ></span>
+                humidity: <span data-bind="text: humidity" ></span>
+            </div>
+        </div>
+
+
     </form>
 
 }

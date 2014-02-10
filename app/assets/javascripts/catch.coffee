@@ -1,7 +1,15 @@
 class Catch
   constructor: (json) ->
-    @place = ko.observable(json.place)
-    @fish = ko.observable(json.fish)
+    @place = json.place
+    @fish = json.fish
+
+class Weather
+  constructor: (json) ->
+    @time = json.time
+    @condition = json.condition
+    @temp = json.temp
+    @pressure = json.pressure
+    @humidity = json.humidity
 
 class CatchViewModel
   constructor: () ->
@@ -9,6 +17,8 @@ class CatchViewModel
     @catches = ko.observableArray([])
     @place = ko.observable("")
     @fish = ko.observable("")
+    @weatherList = ko.observableArray([])
+
     # init calender
     $('.datepicker').datepicker(
       autoclose: true
@@ -20,12 +30,14 @@ class CatchViewModel
     @load()
 
   onChangeDate: (event) ->
+    self = @
     time = event.date.getTime()
     url = routes.controllers.WeatherController.findByDate(time).url
     $.getJSON(url, (json) ->
+      loadedWeatherList = $.map(json, (weatherJson) -> new Weather(weatherJson))
+      self.weatherList(loadedWeatherList)
       alert(json)
     )
-
 
   submit: () ->
     catchObj =

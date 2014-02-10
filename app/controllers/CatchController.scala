@@ -3,9 +3,9 @@ package controllers
 import play.api.mvc.{SimpleResult, Result, Action, Controller}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsString, JsPath, JsResult, Json}
-import models.Catch
 import services.impl.ServicesImpl.services._
 import scala.concurrent.Future
+import controllers.model.CatchJson
 
 
 /**
@@ -13,19 +13,15 @@ import scala.concurrent.Future
  */
 object CatchController extends Controller {
 
-  case class CatchForm(place: String, fish: String) {
-    def toCatch = Catch(fish, place)
-  }
-
-  implicit val catchFormFormat = Json.format[CatchForm]
+  implicit val catchJsonFormat = Json.format[CatchJson]
 
   def create() = Action.async(parse.json) { req =>
       Future {
         println(req)
-        val json: JsResult[CatchForm] = Json.fromJson(req.body)
+        val json: JsResult[CatchJson] = Json.fromJson(req.body)
         json.fold[SimpleResult](
           invalid => BadRequest("Bad json"),
-          form => {catchService.create(form.toCatch);  Ok("Created") }
+          validJson => {catchService.create(validJson.toCatch);  Ok("Created") }
         )
       }
   }
@@ -33,7 +29,8 @@ object CatchController extends Controller {
   def findAll() = Action.async { req =>
       Future {
         val catches = catchService.findAll()
-        Ok(Json.toJson(catches))
+        val catchesJson = catches.map(new CatchJson(_))
+        Ok(Json.toJson(catchesJson))
       }
   }
 

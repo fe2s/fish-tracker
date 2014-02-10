@@ -9,6 +9,3 @@ case class Catch(fish:String, place:String) {
 
 }
 
-object Catch {
-  implicit val format = Json.format[Catch]
-}

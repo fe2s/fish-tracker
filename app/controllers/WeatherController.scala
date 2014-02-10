@@ -2,11 +2,10 @@ package controllers
 
 
 import play.api.mvc.{Result, Action, Controller}
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsString, JsPath, JsResult, Json}
 import models.Catch
 import services.impl.ServicesImpl.services._
-import com.github.nscala_time.time.Imports._
+import controllers.model.{WindJson, WeatherJson}
 
 
 /**
@@ -14,11 +13,15 @@ import com.github.nscala_time.time.Imports._
  */
 object WeatherController extends Controller {
 
-  def findByDate(time: Long) = Action { req =>
+  implicit val windFormat = Json.format[WindJson]
+  implicit val weatherFormat = Json.format[WeatherJson]
 
-    weatherService.findByDate(time)
-    println(req + " " + time)
-    Ok("asdasd")
+  def findByDate(time: Long) = Action { req =>
+      println(req + " " + time)
+
+      val weatherList = weatherService.findByDate(time)
+      val weatherJson = weatherList.map(WeatherJson.convert)
+      Ok(Json.toJson(weatherJson))
   }
 
 
