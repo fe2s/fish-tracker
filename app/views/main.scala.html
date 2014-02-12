@@ -1,4 +1,4 @@
-@(content: Html)
+@(scripts: Html = Html(""))(content: Html)
 
 <!DOCTYPE html>
 <html>
@@ -11,12 +11,14 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
+    <script type='text/javascript' src='/routes.js'></script>
+
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.js"))'></script>
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.js"))'></script>
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("knockout.js"))'></script>
-    <script type='text/javascript' src='@routes.Assets.at("javascripts/datepicker/bootstrap-datepicker.js")'></script>
-    <script type='text/javascript' src='/routes.js'></script>
-    <script type='text/javascript' src='@routes.Assets.at("javascripts/catch.js")'></script>
+
+    @scripts
+
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
@@ -26,7 +28,10 @@
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li><a href="/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="/page/catch/create">Log your catch</a></li>
             </ul>
         </div>
     </nav>

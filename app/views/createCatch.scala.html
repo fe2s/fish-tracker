@@ -1,4 +1,12 @@
-@main {
+@scripts = {
+
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/datepicker/bootstrap-datepicker.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/canvasjs/canvasjs.min.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/createCatch.js")'></script>
+}
+
+
+@main(scripts) {
 
     <form class="form-horizontal" role="form">
         <div class="form-group">
@@ -30,11 +38,7 @@
             </div>
         </div>
 
-        <div data-bind="foreach: catches">
-            <div>
-                place: <span data-bind="text: place" ></span>
-                fish: <span data-bind="text: fish" ></span>
-            </div>
+        <div id="chartContainer" style="height: 300px; width: 100%;">
         </div>
 
         <div data-bind="foreach: weatherList">

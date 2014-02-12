@@ -14,7 +14,6 @@ class Weather
 class CatchViewModel
   constructor: () ->
     self = @
-    @catches = ko.observableArray([])
     @place = ko.observable("")
     @fish = ko.observable("")
     @weatherList = ko.observableArray([])
@@ -26,15 +25,17 @@ class CatchViewModel
     ).on('changeDate', (event) ->
       self.onChangeDate(event)
     )
-    # load data
-    @load()
+
+    # init canvas
+    @initCanvas()
 
   onChangeDate: (event) ->
     self = @
     time = event.date.getTime()
     url = routes.controllers.WeatherController.findByDate(time).url
     $.getJSON(url, (json) ->
-      loadedWeatherList = $.map(json, (weatherJson) -> new Weather(weatherJson))
+      loadedWeatherList = $.map(json, (weatherJson) ->
+        new Weather(weatherJson))
       self.weatherList(loadedWeatherList)
       alert(json)
     )
@@ -53,16 +54,29 @@ class CatchViewModel
       url: routes.controllers.CatchController.create().url
     )
 
-  load: () ->
-    self = @
-    url = routes.controllers.CatchController.findAll().url
-    $.getJSON(url, (json) ->
-      loadedCatches = $.map(json, (catchJson) -> new Catch(catchJson))
-      self.catches(loadedCatches)
-    )
+  initCanvas: () ->
+    chart = new CanvasJS.Chart("chartContainer", {
+      theme: "theme2",
+      title: {
+        text: "Basic Column Chart - CanvasJS"
+      },
+      data: [
+        {
+        # Change type to "bar", "splineArea", "area", "spline", "pie",etc.
+          type: "column",
+          dataPoints: [
+            { label: "apple", y: 10 },
+            { label: "orange", y: 15 },
+            { label: "banana", y: 25 },
+            { label: "mango", y: 30 },
+            { label: "grape", y: 28 }
+          ]
+        }
+      ]
+    });
+    chart.render();
+
 
 $(() ->
   ko.applyBindings(new CatchViewModel)
 )
-
-#routes.controllers.CatchController.test()

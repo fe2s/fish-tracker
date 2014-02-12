@@ -15,6 +15,10 @@ object CatchController extends Controller {
 
   implicit val catchJsonFormat = Json.format[CatchJson]
 
+  def createCatchPage() = Action {
+    Ok(views.html.createCatch())
+  }
+
   def create() = Action.async(parse.json) { req =>
       Future {
         println(req)
