@@ -14,7 +14,6 @@ class Weather
 class CatchViewModel
   constructor: () ->
     self = @
-    @catches = ko.observableArray([])
     @place = ko.observable("")
     @fish = ko.observable("")
     @weatherList = ko.observableArray([])
@@ -26,8 +25,6 @@ class CatchViewModel
     ).on('changeDate', (event) ->
       self.onChangeDate(event)
     )
-    # load data
-    @load()
 
   onChangeDate: (event) ->
     self = @
@@ -53,16 +50,7 @@ class CatchViewModel
       url: routes.controllers.CatchController.create().url
     )
 
-  load: () ->
-    self = @
-    url = routes.controllers.CatchController.findAll().url
-    $.getJSON(url, (json) ->
-      loadedCatches = $.map(json, (catchJson) -> new Catch(catchJson))
-      self.catches(loadedCatches)
-    )
 
 $(() ->
   ko.applyBindings(new CatchViewModel)
 )
-
-#routes.controllers.CatchController.test()

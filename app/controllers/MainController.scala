@@ -6,10 +6,10 @@ import play.api.Routes
 object MainController extends Controller {
 
   /**
-   * The index page.  This is the main entry point, seeing as this is a single page app.
+   * Home page
    */
-  def index(path: String) = Action {
-    Ok(views.html.index())
+  def home(path: String) = Action {
+    Ok(views.html.home())
   }
 
   /** The javascript router. */
