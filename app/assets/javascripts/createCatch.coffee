@@ -55,26 +55,49 @@ class CatchViewModel
     )
 
   initCanvas: () ->
+    dps = [
+      { x: new Date(2012, 1, 1, 1,0), y: 1 },
+      { x: new Date(2012, 1, 1, 2,0), y: 2}
+    ]
+
     chart = new CanvasJS.Chart("chartContainer", {
       theme: "theme2",
       title: {
-        text: "Basic Column Chart - CanvasJS"
+        text: "Earthquakes - per month"
+      },
+      axisX: {
+        title: "time",
+        valueFormatString: "H:mm",
+        maximum: new Date(2012, 1, 1, 24,0)
+        interval: 1,
+        intervalType: "hour"
+      },
+      axisY: {
+        title: "fish activity"
+        includeZero: true
+        interval: 1
+        maximum: 5
       },
       data: [
         {
-        # Change type to "bar", "splineArea", "area", "spline", "pie",etc.
-          type: "column",
-          dataPoints: [
-            { label: "apple", y: 10 },
-            { label: "orange", y: 15 },
-            { label: "banana", y: 25 },
-            { label: "mango", y: 30 },
-            { label: "grape", y: 28 }
-          ]
+          type: "line",
+        #lineThickness: 3,
+          dataPoints: dps,
+          click: (e) ->
+            alert("clicked" + e)
         }
       ]
     });
-    chart.render();
+    chart.render()
+    $("canvas")[1].addEventListener("click", (e) ->
+      alert(e.x)
+    );
+#    setInterval( ->
+##      dps[0].y = dps[0].y + 5
+##      chart.render();
+#      1
+#    , 1000)
+
 
 
 $(() ->
