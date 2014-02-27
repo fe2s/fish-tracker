@@ -10372,6 +10372,7 @@
 
 			this.render = function () { _chart.render() };
 			this.options = _chart._options;
+            this._chart = _chart; // exposing internals
 		},
 		addColorSet: function (name, colorSet) {
 			colorSets[name] = colorSet;

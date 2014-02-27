@@ -90,7 +90,8 @@ class CatchViewModel
     });
     chart.render()
     $("canvas")[1].addEventListener("click", (e) ->
-      alert(e.x)
+      alert(e.layerX)
+      chart._chart.axisX.getXValueAt(e.layerX)
     );
 #    setInterval( ->
 ##      dps[0].y = dps[0].y + 5
