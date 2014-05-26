@@ -21,7 +21,7 @@ object CatchController extends Controller {
 
   def create() = Action.async(parse.json) { req =>
       Future {
-        println(req)
+        println(req.body)
         val json: JsResult[CatchJson] = Json.fromJson(req.body)
         json.fold[SimpleResult](
           invalid => BadRequest("Bad json"),

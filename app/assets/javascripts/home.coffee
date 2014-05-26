@@ -2,6 +2,7 @@ class Catch
   constructor: (json) ->
     @place = json.place
     @fish = json.fish
+    @date = new Date(json.date).toLocaleFormat('%d-%b-%Y');
 
 
 class CatchViewModel
