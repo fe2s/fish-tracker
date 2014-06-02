@@ -23,6 +23,7 @@ object CatchController extends Controller {
       Future {
         println(req.body)
         val json: JsResult[CatchJson] = Json.fromJson(req.body)
+        println("json" + json)
         json.fold[SimpleResult](
           invalid => BadRequest("Bad json"),
           validJson => {catchService.create(validJson.toCatch);  Ok("Created") }

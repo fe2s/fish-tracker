@@ -18,13 +18,6 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label">Fish</label>
-            <div class="col-md-5">
-                <input data-bind="value: fish" type="text" class="form-control" placeholder="fish">
-            </div>
-        </div>
-
-        <div class="form-group">
             <label class="col-md-2 control-label">Date</label>
             <div class="col-md-5">
                 <div class="input-group">
@@ -34,22 +27,39 @@
         </div>
 
         <div class="form-group">
+            <label class="col-md-2 control-label">Fish</label>
+            <div class="col-md-5">
+                <select data-bind="options: availableFishes, value: fish" class="form-control" ></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Day rating</label>
+            <div class="col-md-5">
+                <select data-bind="options: availableDayRatings, value: dayRating" class="form-control" ></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Hour rating 1</label>
+            <span class="col-md-1">
+                <select data-bind="options: availableHours, value: hourRatingStart1" class="form-control" ></select>
+                </span>
+            <span class="col-md-1">
+                <select data-bind="options: availableHours, value: hourRatingEnd1" class="form-control" ></select>
+            </span>
+            <span class="col-md-1">
+                <select data-bind="options: availableHourRatings, value: hourRating1" class="form-control" ></select>
+            </span>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-5">
                 <button data-bind="click: submit" class="btn btn-default">Submit</button>
             </div>
         </div>
 
         <div id="chartContainer" style="height: 300px; width: 100%;">
-        </div>
-
-        <div data-bind="foreach: weatherList">
-            <div>
-                time: <span data-bind="text: time" ></span>
-                condition: <span data-bind="text: condition" ></span>
-                temperature: <span data-bind="text: temp" ></span>
-                pressure: <span data-bind="text: pressure" ></span>
-                humidity: <span data-bind="text: humidity" ></span>
-            </div>
         </div>
 
 

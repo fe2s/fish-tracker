@@ -3,21 +3,27 @@ class Catch
     @place = json.place
     @fish = json.fish
 
-class Weather
-  constructor: (json) ->
-    @time = json.time
-    @condition = json.condition
-    @temp = json.temp
-    @pressure = json.pressure
-    @humidity = json.humidity
-
 class CatchViewModel
   constructor: () ->
     self = @
     @place = ko.observable("")
-    @fish = ko.observable("")
-    @weatherList = ko.observableArray([])
     @date = ""
+    @fish = ko.observable("")
+    @availableFishes = ko.observableArray(["perch", "pike", "zander"])
+    @dayRating = ko.observable("3")
+    @availableDayRatings = ko.observableArray(['1', '2', '3', '4', '5'])
+    @availableHourRatings = ko.observableArray(["", "1", "2", "3", "4", "5"])
+
+    @availableHours = ko.observableArray(["", "00", "01", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"])
+
+    @hourRatingStart1 = ko.observable("")
+    @hourRatingEnd1 = ko.observable("")
+    @hourRating1 = ko.observable("")
+
+    @hourRatingStart2 = ko.observable("")
+    @hourRatingEnd2 = ko.observable("")
+    @hourRating2 = ko.observable("")
+
 
     # init calender
     $('.datepicker').datepicker(
@@ -27,22 +33,20 @@ class CatchViewModel
       self.date = event.date.getTime()
     )
 
-#  onChangeDate: (event) ->
-#    self = @
-#    time = event.date.getTime()
-#    url = routes.controllers.WeatherController.findByDate(time).url
-#    $.getJSON(url, (json) ->
-#      loadedWeatherList = $.map(json, (weatherJson) ->
-#        new Weather(weatherJson))
-#      self.weatherList(loadedWeatherList)
-#      alert(json)
-#    )
-
   submit: () ->
     catchObj =
       fish: @fish()
       place: @place()
       date: @date
+      dayRating: @dayRating()
+      hourRatingStart1: @hourRatingStart1()
+      hourRatingEnd1: @hourRatingEnd1()
+      hourRating1: @hourRating1()
+#      hourRatingStart2: @hourRatingStart2()
+#      hourRatingEnd2: @hourRatingEnd2()
+#      hourRating2: @hourRating2()
+
+
 
     $.ajax(
       contentType: "application/json"
