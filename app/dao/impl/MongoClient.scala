@@ -27,6 +27,7 @@ object MongoClient {
 
   val catchColl = db("catch")
   val weatherColl = db("weather")
+  val baitColl = db("bait")
 
 
 

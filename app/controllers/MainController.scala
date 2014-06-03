@@ -18,7 +18,8 @@ object MainController extends Controller {
       Routes.javascriptRouter("routes")(
         routes.javascript.CatchController.create,
         routes.javascript.CatchController.findAll,
-        routes.javascript.WeatherController.findByDate
+        routes.javascript.WeatherController.findByDate,
+        routes.javascript.BaitController.create
       )
     ).as("text/javascript")
   }

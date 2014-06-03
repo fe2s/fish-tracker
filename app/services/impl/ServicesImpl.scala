@@ -1,6 +1,6 @@
 package services.impl
 
-import dao.impl.{WeatherDaoComponentImpl, CatchDaoComponentImpl}
+import dao.impl.{BaitDaoComponentImpl, WeatherDaoComponentImpl, CatchDaoComponentImpl}
 
 /**
  * @author Oleksiy Dyagilev
@@ -9,5 +9,6 @@ import dao.impl.{WeatherDaoComponentImpl, CatchDaoComponentImpl}
 object ServicesImpl {
   lazy val services =
     new CatchServiceComponentImpl with CatchDaoComponentImpl with
-    WeatherServiceComponentImpl with WeatherDaoComponentImpl
+    WeatherServiceComponentImpl with WeatherDaoComponentImpl with
+    BaitServiceComponentImpl with BaitDaoComponentImpl
 }

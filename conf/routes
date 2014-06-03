@@ -13,8 +13,14 @@ GET         /routes.js             controllers.MainController.router
 # Every other page
 #GET         /*path                 controllers.MainController.index(path)
 
+# Catch
 GET         /catch               controllers.CatchController.findAll
 POST        /catch/create        controllers.CatchController.create
 GET        /page/catch/create    controllers.CatchController.createCatchPage
 
+# Weather
 GET         /weather/date/:time          controllers.WeatherController.findByDate(time:Long)
+
+# Bait
+GET        /page/bait/create    controllers.BaitController.createBaitPage
+POST       /bait/create    controllers.BaitController.create

@@ -1,8 +1,3 @@
-class Catch
-  constructor: (json) ->
-    @place = json.place
-    @fish = json.fish
-
 class CatchViewModel
   constructor: () ->
     self = @
@@ -45,8 +40,6 @@ class CatchViewModel
       hourRatingStart2: @hourRatingStart2()
       hourRatingEnd2: @hourRatingEnd2()
       hourRating2: @hourRating2()
-
-
 
     $.ajax(
       contentType: "application/json"
