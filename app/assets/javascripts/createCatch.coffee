@@ -42,9 +42,9 @@ class CatchViewModel
       hourRatingStart1: @hourRatingStart1()
       hourRatingEnd1: @hourRatingEnd1()
       hourRating1: @hourRating1()
-#      hourRatingStart2: @hourRatingStart2()
-#      hourRatingEnd2: @hourRatingEnd2()
-#      hourRating2: @hourRating2()
+      hourRatingStart2: @hourRatingStart2()
+      hourRatingEnd2: @hourRatingEnd2()
+      hourRating2: @hourRating2()
 
 
 
